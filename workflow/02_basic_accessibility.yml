@@ -1,0 +1,8 @@
+---
+- name: verify_basic_accessibility
+  hosts: tmp_group,!localhost
+  gather_facts: no
+  become: true
+  
+  tasks:
+  - action: ping

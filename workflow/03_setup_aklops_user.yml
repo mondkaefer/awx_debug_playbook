@@ -1,0 +1,8 @@
+---
+- name: setup_aklops_user
+  hosts: tmp_group,!localhost
+  gather_facts: no
+  
+  tasks:
+  - debug:
+     msg: "setting up aklops user"
