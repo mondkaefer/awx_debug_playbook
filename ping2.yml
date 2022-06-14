@@ -5,16 +5,14 @@
   
   vars:
     ip_address: "{{ survey_ip }}"  
-    user_name: "{{ survey_username }}"  
   
   tasks:
-    
-  - name: make host group from survey hosts list
+  - name: make host group from ip provided in survey
     add_host:
       hostname: "{{ ip_address }}"
       groupname: new_group      
 
-- name: ping
+- name: verify basic accessibility
   hosts: new_group,!localhost
   gather_facts: no
   become: true
