@@ -1,0 +1,39 @@
+---
+- name: create_host_group
+  hosts: localhost
+  gather_facts: no
+  
+  vars:
+    ip_address: "{{ survey_ip }}"  
+  
+  tasks:
+  - name: make host group from ip provided in survey
+    add_host:
+      hostname: "{{ ip_address }}"
+      groupname: tmp_group      
+  - debug:
+      msg: "created host group tmp_group with host {{ ip_address }}"
+
+- name: verify_basic_accessibility
+  hosts: tmp_group,!localhost
+  gather_facts: no
+  become: true
+  
+  tasks:
+  - action: ping
+
+- name: setup_aklops_user
+  hosts: tmp_group,!localhost
+  gather_facts: no
+  
+  tasks:
+  - debug:
+     msg: "setting up aklops user"
+
+- name: tag_nectar_vm
+  hosts: tmp_group,!localhost
+  gather_facts: no
+  
+  tasks:
+  - debug:
+     msg: "tagging nectar vm"
