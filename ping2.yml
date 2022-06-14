@@ -10,10 +10,10 @@
   - name: make host group from ip provided in survey
     add_host:
       hostname: "{{ ip_address }}"
-      groupname: new_group      
+      groupname: tmp_group      
 
 - name: verify basic accessibility
-  hosts: new_group,!localhost
+  hosts: tmp_group,!localhost
   gather_facts: no
   become: true
   
