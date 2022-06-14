@@ -1,5 +1,5 @@
 ---
-- hosts: all
-  become: yes  
+- hosts:
+    - all
   tasks:
-    - ping
+    - action: ping
