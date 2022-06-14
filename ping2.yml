@@ -1,0 +1,23 @@
+---
+- name: configure inventory host
+  hosts: localhost
+  gather_facts: no
+  
+  vars:
+    ip_address: "{{ survey_ip }}"  
+    user_name: "{{ survey_username }}"  
+  
+  tasks:
+    
+  - name: make host group from survey hosts list
+    add_host:
+      hostname: "{{ ip_address }}"
+      groupname: new_group      
+
+- name: ping
+  hosts: new_group,!localhost
+  gather_facts: no
+  become: true
+  
+  tasks:
+  - action: ping
