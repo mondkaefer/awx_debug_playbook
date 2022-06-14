@@ -12,7 +12,7 @@
       hostname: "{{ ip_address }}"
       groupname: tmp_group      
 
-- name: Verify basic accessibility of {{ ip_address }}
+- name: Verify basic accessibility of VM
   hosts: tmp_group,!localhost
   gather_facts: no
   become: true
