@@ -20,7 +20,7 @@
   tasks:
   - action: ping
 
-- name: Setup aklops user
+- name: Configure aklops user
   hosts: tmp_group,!localhost
   gather_facts: no
   
@@ -28,6 +28,7 @@
   - name: Set up aklops account         
     user:
       name: aklops
+      comment: Security-related account set up by the Centre for eResearch. Please do not delete
       create_home: yes
       shell: /bin/bash
       expires: -1
