@@ -31,7 +31,7 @@
       comment: Security-related account set up by the Centre for eResearch. Please do not delete
       create_home: yes
       shell: /bin/bash
-      expires: -1
+      # expires: -1
       
   - name: Add public key to authorized_keys file
     authorized_key:
