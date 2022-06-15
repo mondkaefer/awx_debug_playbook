@@ -23,6 +23,7 @@
 - name: Configure aklops user
   hosts: tmp_group,!localhost
   gather_facts: no
+  become: true
   
   tasks:
   - name: Set up aklops account         
