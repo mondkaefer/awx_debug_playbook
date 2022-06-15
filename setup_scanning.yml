@@ -35,7 +35,7 @@
       expires: -1
 
   - name: Add public key to authorized_keys file
-    authorized_key:
+    ansible.posix.authorized_key:
       user: aklops
       state: present
       key: "{{ aklops_public_key }}"
