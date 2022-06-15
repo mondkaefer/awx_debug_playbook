@@ -36,15 +36,15 @@
     authorized_key:
       user: aklops
       state: present
-      key: {{ aklops_public_key }}
+      key: "{{ aklops_public_key }}"
 
   - name: Allow aklops user to have passwordless sudo
     lineinfile:
       dest: /etc/sudoers
       state: present
-      regexp: '^aklops'
-      line: 'aklops ALL=(ALL) NOPASSWD: ALL'
-      validate: 'visudo -cf %s'
+      regexp: "^aklops"
+      line: "aklops ALL=(ALL) NOPASSWD: ALL"
+      validate: "visudo -cf %s"
 
 - name: Tag Nectar VM as set up
   hosts: tmp_group,!localhost
