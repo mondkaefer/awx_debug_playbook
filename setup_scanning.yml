@@ -49,7 +49,7 @@
       validate: "visudo -cf %s"
 
 - name: Tag Nectar VM as set up
-  hosts: tmp_group,!localhost
+  hosts: localhost
   gather_facts: no
   
   tasks:
