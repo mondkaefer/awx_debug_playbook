@@ -1,7 +1,7 @@
 ---
 - name: Get information about instance from OpenStack
   hosts: localhost
-  connection: local
+  delegate_to: localhost
   gather_facts: no
   tasks:
   - name: Get public IP address of OpenStack instance
