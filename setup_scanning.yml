@@ -2,18 +2,21 @@
 - name: Get information about instance from OpenStack
   hosts: localhost
   connection: local
-  gather_facts: yes
+  gather_facts: no
   vars:
     ansible_python_interpreter: "{{ ansible_playbook_python }}"
+    app_cred_id: "{{ application_credential_id }}"
+    app_cred_secret: "{{ application_credential_secret }}"
+    aurl: "{{ auth_url }}"
   tasks:
   - name: Get public IP address of OpenStack instance
     ceradmin.openstack.get_instance_details:
       instance_id: "{{ instance_id }}"
     register: instance_details
     environment:
-      APPLICATION_CREDENTIAL_ID: "{{ application_credential_id }}"
-      APPLICATION_CREDENTIAL_SECRET: "{{ application_credential_secret }}"
-      AUTH_URL: "{{ auth_url }}"
+      APPLICATION_CREDENTIAL_ID: "{{ app_cred_id }}"
+      APPLICATION_CREDENTIAL_SECRET: "{{ app_cred_secret }}"
+      AUTH_URL: "{{ aurl }}"
 
   - name: Check if we got a public IP address
     fail:
