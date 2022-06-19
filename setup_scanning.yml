@@ -2,8 +2,6 @@
 - name: Get information about instance from OpenStack
   hosts: localhost
   gather_facts: no
-  vars_files: 
-    - run_ansible_local/encrypted_vars.yml
   tasks:
   - name: Get public IP address of OpenStack instance
     ceradmin.openstack.get_instance_details:
