@@ -6,13 +6,14 @@
   vars:
     ansible_python_interpreter: "{{ ansible_playbook_python }}"
   tasks:
-  - ansible.builtin.debug:
-      msg:
-      - '{{ lookup("env", "AUTH_URL") }}'
   - name: Get public IP address of OpenStack instance
     ceradmin.openstack.get_instance_details:
       instance_id: "{{ instance_id }}"
     register: instance_details
+    environment:
+      APPLICATION_CREDENTIAL_ID: "{{ application_credential_id }}"
+      APPLICATION_CREDENTIAL_SECRET: "{{ application_credential_secret }}"
+      AUTH_URL: "{{ auth_url }}"
 
   - name: Check if we got a public IP address
     fail:
