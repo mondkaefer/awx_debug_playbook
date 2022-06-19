@@ -11,9 +11,9 @@
       instance_id: "{{ instance_id }}"
     register: instance_details
     environment:
-      APPLICATION_CREDENTIAL_ID: "{{ application_credential_id }}"
-      APPLICATION_CREDENTIAL_SECRET: "{{ application_credential_secret }}"
-      AUTH_URL: "{{ auth_url }}"
+      APPLICATION_CREDENTIAL_ID: "{{ APPLICATION_CREDENTIAL_ID }}"
+      APPLICATION_CREDENTIAL_SECRET: "{{ APPLICATION_CREDENTIAL_SECRET }}"
+      AUTH_URL: "{{ AUTH_URL }}"
 
   - name: Check if we got a public IP address
     fail:
