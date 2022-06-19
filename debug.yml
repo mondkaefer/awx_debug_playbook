@@ -1,8 +1,8 @@
 ---
-- hosts: all
+- hosts: localhost
   connection: local
 
   tasks:
     - debug:
-        msg: "Simple Test Debug for Openstack inventory"
+        msg: "'{{ lookup('env', 'AUTH_URL') }}' is the value of the AUTH_URL environment variable."
 
