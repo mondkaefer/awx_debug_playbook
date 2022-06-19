@@ -1,7 +1,10 @@
 ---
 - hosts: localhost
-
+  connection: local
+  gather_facts: no
   tasks:
     - debug:
-        msg: "'{{ lookup('env', 'AUTH_URL') }}' is the value of the AUTH_URL environment variable."
-
+        msg: 
+         - "'{{ lookup('env', 'AUTH_URL') }}' is the value of the AUTH_URL environment variable."
+         - "'{{ AUTH_URL }}' is the value of extra var AUTH_URL."
+        
