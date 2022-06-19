@@ -1,10 +1,10 @@
 ---
 - name: Get information about instance from OpenStack
   hosts: localhost
-  delegate_to: localhost
   gather_facts: no
   tasks:
   - name: Get public IP address of OpenStack instance
+    delegate_to: localhost
     ceradmin.openstack.get_instance_details:
       instance_id: "{{ instance_id }}"
     register: instance_details
