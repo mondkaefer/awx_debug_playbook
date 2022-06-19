@@ -6,5 +6,4 @@
     - debug:
         msg: 
          - "'{{ lookup('env', 'AUTH_URL') }}' is the value of the AUTH_URL environment variable."
-         - "'{{ AUTH_URL }}' is the value of extra var AUTH_URL."
         
