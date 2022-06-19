@@ -1,6 +1,7 @@
 ---
 - name: Get information about instance from OpenStack
   hosts: localhost
+  connection: local
   gather_facts: no
   tasks:
   - name: Get public IP address of OpenStack instance
@@ -15,6 +16,7 @@
 
 - name: Create host group with single IP
   hosts: localhost
+  connection: local
   gather_facts: no
   tasks:
   - name: Create temp host group from IP
@@ -71,6 +73,7 @@
 
 - name: Tagging OpenStack VM 
   hosts: localhost
+  connection: local
   gather_facts: no
   tasks:
   - name: Setting tag management_account_configured
@@ -187,6 +190,7 @@
 
 - name: Tagging OpenStack VM
   hosts: localhost
+  connection: local
   gather_facts: no
   tasks:
   - name: Setting tag tenable_agent_linked
