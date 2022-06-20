@@ -1,4 +1,5 @@
 ---
+
 - name: Prerequisite checks
   hosts: localhost
   connection: local
@@ -34,7 +35,7 @@
   - name: Set up account 
     user:
       name: "{{ management_user }}"
-      comment: Security-related account set up by the Centre for eResearch. Please do not delete
+      comment: Security-related account set up by the Centre for eResearch. Please do not delete.
       create_home: yes
       shell: /bin/bash
       expires: -1
@@ -65,7 +66,7 @@
       instance_id: "{{ instance_id }}"
       tag: management_account_configured
 
-- name: Disable configured SSH access for default user account for our SSH key
+- name: Roll back our access for the default account. We're going to use aklops from now on.
   hosts: tmp_group,!localhost
   gather_facts: no
   become: true
@@ -73,7 +74,7 @@
   - name: Verify basic accessibility
     action: ping
 
-  - name: Remove public key to authorized_keys file
+  - name: Remove public key from authorized_keys file of the default user
     ansible.posix.authorized_key:
       user: "{{ default_user }}"
       state: absent
