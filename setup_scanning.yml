@@ -10,10 +10,6 @@
     ceradmin.openstack.get_instance_details:
       instance_id: "{{ instance_id }}"
     register: instance_details
-    environment:
-      APPLICATION_CREDENTIAL_ID: "{{ app_cred_id }}"
-      APPLICATION_CREDENTIAL_SECRET: "{{ app_cred_secret }}"
-      AUTH_URL: "{{ auth_url }}"
 
   - name: Check if we got a public IP address
     fail:
@@ -173,7 +169,7 @@
     when: nessus_link_status.stdout.find(tenable_host|string) == -1 and nessus_link_status.stdout.find(tenable_port|string) == -1 and (ansible_facts['distribution'] == "Ubuntu" or ansible_facts['distribution'] == "Debian")
 
   - name: Link nessus agent to tenable
-    shell: /opt/nessus_agent/sbin/nessuscli agent link --host={{ tenable_host }} --port={{ tenable_port }} --key={{ tenable_linking_key }} --groups={{ tenable_agent_group }} --name={{ tenable_agent_name }}
+    shell: /opt/nessus_agent/sbin/nessuscli agent link --host={{ TENABLE_HOST }} --port={{ TENABLE_PORT }} --key={{ TENABLE_LINKING_KEY }} --groups={{ TENABLE_AGENT_GROUP }} --name={{ tenable_agent_name }}
     when:
      - nessus_link_status.stdout.find(tenable_host|string) == -1
      - nessus_link_status.stdout.find(tenable_port|string) == -1
@@ -198,6 +194,8 @@
   hosts: localhost
   connection: local
   gather_facts: no
+  vars:
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
   tasks:
   - name: Setting tag tenable_agent_linked
     ceradmin.openstack.set_instance_tag:
