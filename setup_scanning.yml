@@ -142,45 +142,45 @@
     ansible.builtin.debug:
       msg:
       - "THIS VM IS RUNNING CENTOS OR FEDORA OR ROCKY, AND THE AGENT IS NOT YET INSTALLED."
-    when: nessus_link_status.stdout.find(tenable_host|string) == -1 and nessus_link_status.stdout.find(tenable_port|string) == -1 and (ansible_facts['distribution'] == "CentOS" or ansible_facts['distribution'] == "Fedora" or ansible_facts['distribution'] == "Rocky")
+    when: nessus_link_status.stdout.find(TENABLE_HOST|string) == -1 and nessus_link_status.stdout.find(TENABLE_PORT|string) == -1 and (ansible_facts['distribution'] == "CentOS" or ansible_facts['distribution'] == "Fedora" or ansible_facts['distribution'] == "Rocky")
 
   - name: TESTING BLOCK FOR Ubuntu/Debian
     ansible.builtin.debug:
       msg:
       - "THIS VM IS RUNNING UBUNTU OR DEBIAN, AND THE AGENT IS NOT YET INSTALLED."
-    when: nessus_link_status.stdout.find(tenable_host|string) == -1 and nessus_link_status.stdout.find(tenable_port|string) == -1 and (ansible_facts['distribution'] == "Ubuntu" or ansible_facts['distribution'] == "Debian")
+    when: nessus_link_status.stdout.find(TENABLE_HOST|string) == -1 and nessus_link_status.stdout.find(TENABLE_PORT|string) == -1 and (ansible_facts['distribution'] == "Ubuntu" or ansible_facts['distribution'] == "Debian")
 
   - name: Copy installation package to server
     copy:
      src: "{{ agent_file_src }}"
      dest: "{{ agent_file_dest }}"
     when:
-     - nessus_link_status.stdout.find(tenable_host|string) == -1
-     - nessus_link_status.stdout.find(tenable_port|string) == -1
+     - nessus_link_status.stdout.find(TENABLE_HOST|string) == -1
+     - nessus_link_status.stdout.find(TENABLE_PORT|string) == -1
 
   - name: Install Nessus Agent rpm from a local file for CentOS/Fedora/Rocky
     yum:
       name: "{{ agent_file_dest }}"
       state: present
       disable_gpg_check: yes
-    when: nessus_link_status.stdout.find(tenable_host|string) == -1 and nessus_link_status.stdout.find(tenable_port|string) == -1 and (ansible_facts['distribution'] == "CentOS" or ansible_facts['distribution'] == "Fedora" or ansible_facts['distribution'] == "Rocky")
+    when: nessus_link_status.stdout.find(TENABLE_HOST|string) == -1 and nessus_link_status.stdout.find(TENABLE_PORT|string) == -1 and (ansible_facts['distribution'] == "CentOS" or ansible_facts['distribution'] == "Fedora" or ansible_facts['distribution'] == "Rocky")
 
   - name: Install Nessus Agent deb from a local file for Ubuntu/Debian
     apt:
       deb: "{{ agent_file_dest }}"
-    when: nessus_link_status.stdout.find(tenable_host|string) == -1 and nessus_link_status.stdout.find(tenable_port|string) == -1 and (ansible_facts['distribution'] == "Ubuntu" or ansible_facts['distribution'] == "Debian")
+    when: nessus_link_status.stdout.find(TENABLE_HOST|string) == -1 and nessus_link_status.stdout.find(TENABLE_PORT|string) == -1 and (ansible_facts['distribution'] == "Ubuntu" or ansible_facts['distribution'] == "Debian")
 
   - name: Link nessus agent to tenable
     shell: /opt/nessus_agent/sbin/nessuscli agent link --host={{ TENABLE_HOST }} --port={{ TENABLE_PORT }} --key={{ TENABLE_LINKING_KEY }} --groups={{ TENABLE_AGENT_GROUP }} --name={{ tenable_agent_name }}
     when:
-     - nessus_link_status.stdout.find(tenable_host|string) == -1
-     - nessus_link_status.stdout.find(tenable_port|string) == -1
+     - nessus_link_status.stdout.find(TENABLE_HOST|string) == -1
+     - nessus_link_status.stdout.find(TENABLE_PORT|string) == -1
 
   - name: Starting Nessus Agent service
     command: systemctl start nessusagent
     when:
-     - nessus_link_status.stdout.find(tenable_host|string) == -1
-     - nessus_link_status.stdout.find(tenable_port|string) == -1
+     - nessus_link_status.stdout.find(TENABLE_HOST|string) == -1
+     - nessus_link_status.stdout.find(TENABLE_PORT|string) == -1
      - nessus_agent_service_status.stdout.find("active (running)") == -1
 
   - name: Notification
@@ -188,8 +188,8 @@
       msg:
       - "THIS VM HAS NESSUS AGENT INSTALLED AND LINKED, AND IT IS CURRENTLY RUNNING."
     when:
-     - nessus_link_status.stdout.find(tenable_host|string) != -1
-     - nessus_link_status.stdout.find(tenable_port|string) != -1
+     - nessus_link_status.stdout.find(TENABLE_HOST|string) != -1
+     - nessus_link_status.stdout.find(TENABLE_PORT|string) != -1
      - nessus_agent_service_status.stdout.find("active (running)") != -1
 
 - name: Tagging OpenStack VM
