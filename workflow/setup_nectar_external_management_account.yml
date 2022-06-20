@@ -25,7 +25,7 @@
   hosts: tmp_group,!localhost
   gather_facts: no
   vars:
-    ansible_user: "{{ default_username }}"
+    ansible_user: "{{ default_user }}"
   become: true
   tasks:
   - name: Verify basic accessibility
@@ -75,6 +75,6 @@
 
   - name: Remove public key to authorized_keys file
     ansible.posix.authorized_key:
-      user: "{{ default_username }}"
+      user: "{{ default_user }}"
       state: absent
       key: "{{ management_user_public_key }}"
