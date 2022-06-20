@@ -1,8 +1,0 @@
----
-- name: tag_nectar_vm
-  hosts: tmp_group,!localhost
-  gather_facts: no
-  
-  tasks:
-  - debug:
-     msg: "tagging nectar vm"
