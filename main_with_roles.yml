@@ -28,7 +28,7 @@
 
   - name: Set up and configure management account
     include_role:
-      name: ceradmin.nectar_external.management_account`
+      name: ceradmin.nectar_external.management_account
       tasks_from: setup
     vars:
       ansible_user: "{{ default_user }}"
