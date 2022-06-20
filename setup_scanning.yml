@@ -76,6 +76,8 @@
 - name: Tagging OpenStack VM 
   hosts: localhost
   connection: local
+  vars:
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
   gather_facts: no
   tasks:
   - name: Setting tag management_account_configured
