@@ -36,6 +36,8 @@
 - name: Tag OpenStack VM 
   hosts: localhost
   connection: local
+  vars:
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
   gather_facts: no
   tasks:
 
@@ -43,8 +45,6 @@
     ceradmin.openstack.set_instance_tag:
       instance_id: "{{ instance_id }}"
       tag: management_account_configured
-    vars:
-      ansible_python_interpreter: "{{ ansible_playbook_python }}"
 
 - name: Remove access for the default account. We're going to use aklops from now on.
   hosts: tmp_group,!localhost
